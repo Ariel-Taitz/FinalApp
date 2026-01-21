@@ -9,21 +9,33 @@ namespace FinalApp.Service
 {
     public class DBMokup
     {
-        private List<User> _users = new List<User>();
+        private List<User> _users;
         public DBMokup()
         {
-            _users.Add(new User { UserEmail = "admin@mail.com", UserPassword = "admin" });
-            _users.Add(new User { UserEmail = "user1@mail.com", UserPassword = "pass1" });
-            _users.Add(new User { UserEmail = "user2@mail.com", UserPassword = "pass2" });
+            _users = new List<User>();
+            _users.Add(new User { FirstName = "Tomer", LastName = "Marty", UEmail = "admin@mail.com", UPassword = "admin" });
+            _users.Add(new User { FirstName = "Amir", LastName = "Mayo", UEmail = "user1@mail.com", UPassword = "pass1" });
+            _users.Add(new User { FirstName = "Galit", LastName = "Nuvy", UEmail = "user2@mail.com", UPassword = "pass2" });
         }
-        public bool isExist(string uEmail, string uPass)
+        public List<User> GetUsers() { return _users; }
+        public bool isExist(string uEmail, string uPass) { return _users.Any(u => u.UEmail == uEmail && u.UPassword == uPass); }
+        public User? GetUser(string uEmail, string uPass) { return _users.FirstOrDefault(u => u.UEmail == uEmail && u.UPassword == uPass); }
+        public void AddUser(User user) { if (user != null) { _users.Add(user); } }
+        public void RemoveUser(User user) { if (user != null && _users.Contains(user)) { _users.Remove(user); } }
+        public void UpdateUser(User user)
         {
-            return _users.Any(u => u.UserEmail == uEmail && u.UserPassword == uPass);
+            if (user != null && _users.Contains(user))
+            {
+                var index = _users.IndexOf(user);
+                if (index >= 0)
+                {
+                    _users[index] = user;
+                }
+            }
         }
-
         public bool GetUserByEmail(string email)
         {
-            return _users.Any(u => u.UserEmail == email);
+            return _users.Any(u => u.UEmail == email);
         }
     }
 }

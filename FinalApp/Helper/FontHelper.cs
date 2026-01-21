@@ -10,5 +10,8 @@ namespace FinalApp.Helper
     {
         public const string OPEN_EYE_ICON = "\ue8f5";//Unicode for open eye icon
         public const string CLOSED_EYE_ICON = "\ue8f4"; //Unicode for closed eye icon
+
+        public const string FILTER_ALT_OFF = "\ueb32";
+        public const string FILTER_ALT_ON = "\uef4f";
     }
 }
