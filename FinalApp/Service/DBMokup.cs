@@ -20,5 +20,10 @@ namespace FinalApp.Service
         {
             return _users.Any(u => u.UserEmail == uEmail && u.UserPassword == uPass);
         }
+
+        public bool GetUserByEmail(string email)
+        {
+            return _users.Any(u => u.UserEmail == email);
+        }
     }
 }

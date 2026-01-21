@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using FinalApp.Helper;
+using FinalApp.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace FinalApp.ViewModels
 {
     internal class SignUpViewModel : ViewModelBase
     {
+        private DBMokup _db;
+        private string? _userName;
         private string? _firstName;
         private string? _lastName;
         private string? _email;
@@ -29,6 +32,18 @@ namespace FinalApp.ViewModels
             PasswordIconCode = FontHelper.CLOSED_EYE_ICON;
             ShowPasswordCommand = new Command(TogglePasswordButton);
             SignUpCommand = new Command(SignUp, Validate);
+        }
+        public string UserName
+        {
+            get => _userName;
+            set
+            {
+                if (_userName != value)
+                {
+                    _userName = value;
+                    OnPropertyChanged();
+                }
+            }
         }
         public string FirstName
         {
@@ -129,7 +144,10 @@ namespace FinalApp.ViewModels
         }
         private async void SignUp()
         {
-            //Register user into DB
+            if (Validate() && _db.GetUserByEmail(UserEmail) != false) 
+            {
+                await Toast.Make($"Already A User With This Email", ToastDuration.Short, 14).Show();
+            }
             //Save User to Current User
             //Go to Main Page
             await Toast.Make($"SignUp new user", ToastDuration.Short, 14).Show();
@@ -147,3 +165,4 @@ namespace FinalApp.ViewModels
         }
     }
 }
+

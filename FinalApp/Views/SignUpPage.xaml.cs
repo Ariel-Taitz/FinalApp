@@ -6,6 +6,7 @@ namespace FinalApp.Views;
 
 public partial class SignUpPage : ContentPage
 {
+    private string? _userName;
     private string? _firstName;
     private string? _lastName;
     private string? _email;
@@ -24,6 +25,7 @@ public partial class SignUpPage : ContentPage
         PasswordIconCode = FontHelper.CLOSED_EYE_ICON;
         ShowPasswordCommand = new Command(TogglePasswordButton);
     }
+
     public string FirstName
     {
         get => _firstName;
