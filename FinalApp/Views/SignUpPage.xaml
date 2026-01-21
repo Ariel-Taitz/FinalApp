@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="FinalApp.Views.SignUpPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:views="clr-namespace:FinalApp.ViewModels"
+    Title="SignUpPage"
+    x:DataType="views:SignUpViewModel">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0.0" Color="#004FF9" />
+            <GradientStop Offset="1.0" Color="#FFF94C" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Wheat" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid ColumnDefinitions="*,8*,*" RowDefinitions="*,4*,*">
+
+        <HorizontalStackLayout
+            Grid.Column="1"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+
+            <!--  Title  -->
+            <Label
+                FontSize="24"
+                Text="Create Account"
+                TextColor="White" />
+
+        </HorizontalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+
+            <!--  FirstName Field  -->
+            <Border
+                Margin="0,0,0,10"
+                Padding="10"
+                Stroke="#ccc"
+                StrokeShape="RoundRectangle 8"
+                StrokeThickness="1">
+
+                <Entry
+                    FontSize="18"
+                    Placeholder="First Name"
+                    Text="{Binding FirstName}"
+                    TextColor="Wheat" />
+
+            </Border>
+
+            <!--  LastName Field  -->
+            <Border
+                Margin="0,0,0,10"
+                Padding="10"
+                Stroke="#ccc"
+                StrokeShape="RoundRectangle 8"
+                StrokeThickness="1">
+
+                <Entry
+                    FontSize="18"
+                    Placeholder="Last Name"
+                    Text="{Binding LastName}"
+                    TextColor="Wheat" />
+
+            </Border>
+
+            <!--  Email Field  -->
+            <Border
+                Grid.Row="2"
+                Margin="0,0,0,10"
+                Padding="10"
+                Stroke="#ccc"
+                StrokeShape="RoundRectangle 8"
+                StrokeThickness="1">
+                <Entry
+                    Keyboard="Email"
+                    Placeholder="Email"
+                    Text="{Binding UserEmail}">
+                    <Entry.Behaviors>
+                        <toolkit:EmailValidationBehavior
+                            Flags="ValidateOnValueChanged"
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            ValidStyle="{StaticResource ValidEntryStyle}" />
+                    </Entry.Behaviors>
+                </Entry>
+            </Border>
+
+            <!--  Password Field  -->
+            <Border
+                Margin="0,0,0,10"
+                Stroke="#ccc"
+                StrokeShape="RoundRectangle 8"
+                StrokeThickness="1">
+
+                <Grid
+                    Padding="10"
+                    ColumnDefinitions="*,Auto"
+                    VerticalOptions="Center">
+
+                    <Entry
+                        BackgroundColor="Transparent"
+                        FontSize="18"
+                        IsPassword="{Binding EntryAsPassword}"
+                        Placeholder="Password"
+                        Text="{Binding UserPassword}"
+                        TextColor="Wheat"
+                        VerticalOptions="Center" />
+
+                    <Button
+                        Margin="5,0,0,0"
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        Command="{Binding ShowPasswordCommand}"
+                        FontFamily="MaterialSymbols1"
+                        FontSize="24"
+                        HorizontalOptions="End"
+                        Text="{Binding PasswordIconCode}"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+
+                </Grid>
+            </Border>
+
+            <!--  Mobile Field  -->
+            <Border
+                Margin="0,0,0,10"
+                Padding="10"
+                Stroke="#ccc"
+                StrokeShape="RoundRectangle 8"
+                StrokeThickness="1">
+
+                <Entry
+                    FontSize="18"
+                    Keyboard="Telephone"
+                    Placeholder="Mobile"
+                    Text="{Binding Mobile}"
+                    TextColor="Wheat" />
+
+            </Border>
+
+            <!--  Entry Button  -->
+            <Button
+                Command="{Binding SignUpCommand}"
+                CornerRadius="8"
+                FontSize="20"
+                HeightRequest="70"
+                Text="Sign Up"
+                TextColor="White" />
+
+            <!--  Already have an account?  -->
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+
+                <Label
+                    Margin="14,0,0,0"
+                    FontSize="16"
+                    Text="Already have an account?"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
+
+                <Button
+                    BackgroundColor="Transparent"
+                    FontSize="16"
+                    Text="SignIn"
+                    TextColor="BlueViolet" />
+
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+
+    </Grid>
+
+</ContentPage>
