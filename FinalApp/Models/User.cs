@@ -13,6 +13,7 @@ namespace FinalApp.Models
         public string? LastName { get; set; }
         public string? UEmail { get; set; }
         public string? UPassword { get; set; }
+        public string? UMobile { get; set; }
         public DateTime UBDate { get; set; }
         public DateTime RegDate { get; set; }
     }

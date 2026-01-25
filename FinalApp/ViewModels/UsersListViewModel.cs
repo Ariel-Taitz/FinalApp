@@ -99,6 +99,7 @@ namespace FinalApp.ViewModels
             ShowFilterCommand = new Command(ToggleFilterButton);
             DeleteUserCommand = new Command<User>(DeleteUser);
             _entryAsFilter = false;
+            ViewAccountPageCommand = new Command<User>(GoToAccountPage);
         }
         private void ClearFilter()
         {
@@ -113,6 +114,22 @@ namespace FinalApp.ViewModels
                 FilterIconCode = FontHelper.FILTER_ALT_OFF;
             else
                 FilterIconCode = FontHelper.FILTER_ALT_ON;
+        }
+
+        private async void GoToAccountPage(User user)
+        {
+            if (user != null)
+            {
+                // Navigate to the account page for the selected user
+                //await Shell.Current.GoToAsync (@$"UserDetailsPage?UserId={user.Id}");
+                Dictionary<string, object> param = new Dictionary<string, object>();
+                param.Add(" selectedUser ", user);
+                await Shell.Current.GoToAsync(" UserDetailsPage ", param);
+            }
+            else
+            {
+                // Handle the case where user is null, if necessary
+            }
         }
         private void OnSearch()
         {

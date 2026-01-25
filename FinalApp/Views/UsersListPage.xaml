@@ -8,7 +8,6 @@
     Title="UsersListPage"
     x:DataType="viewmodels:UsersListViewModel"
     FlowDirection="LeftToRight">
-
     <Grid RowDefinitions=".13*,.13*,.9*">
         <Grid ColumnDefinitions="7*,3*">
             <Label
@@ -29,24 +28,24 @@
                 VerticalOptions="Center" />
 
         </Grid>
-            <!--  Find && Filter Users 1:10  -->
-            <Grid Grid.Row="1" ColumnDefinitions="7*,3*">
-                <SearchBar
-                    Placeholder="find user"
-                    SearchCommand="{Binding SearchCommand}"
-                    Text="{Binding SearchText}" />
-                <Button
-                    Grid.Column="1"
-                    Margin="0,0,0,15"
-                    Background="Transparent"
-                    TextColor="Black"
-                    FontFamily="MyMaterialSymbols"
-                    Command="{Binding ClearFilterCommand}"
-                    Text="{Binding FilterIconCode}" />
+        <!--  Find && Filter Users 1:10  -->
+        <Grid Grid.Row="1" ColumnDefinitions="7*,3*">
+            <SearchBar
+                Placeholder="find user"
+                SearchCommand="{Binding SearchCommand}"
+                Text="{Binding SearchText}" />
+            <Button
+                Grid.Column="1"
+                Margin="0,0,0,15"
+                Background="Transparent"
+                Command="{Binding ClearFilterCommand}"
+                FontFamily="MyMaterialSymbols"
+                Text="{Binding FilterIconCode}"
+                TextColor="Black" />
 
-            </Grid>
-            <!--  Users Collection  -->
-        
+        </Grid>
+        <!--  Users Collection  -->
+
         <CollectionView
             Grid.Row="2"
             ItemsSource="{Binding AllUsers}"
@@ -57,13 +56,15 @@
                         <SwipeView.LeftItems>
                             <!--  ICONS  -->
                             <SwipeItem
-                                Command="{Binding Path=ViewAccountPageCommand, Source={x:RelativeSource AncestorType={x:Type viewmodels:UsersListViewModel}}, x:DataType='viewmodels:UsersListViewModel'}"
+                                Command="{Binding BindingContext .ViewAccountPage, Source={x:Reference UsersCollection}}"
                                 CommandParameter="{Binding .}"
-                                IconImageSource="account.png"
                                 Text="Watch" />
 
-                            <SwipeItem Text="Delete" Command="{Binding BindingContext.DeleteUserCommand, Source={x:Reference UsersCollection}}" CommandParameter="{Binding .}">
-                               
+                            <SwipeItem
+                                Command="{Binding BindingContext.DeleteUserCommand, Source={x:Reference UsersCollection}}"
+                                CommandParameter="{Binding .}"
+                                Text="Delete">
+
                                 <!--  ICONS  -->
                                 <SwipeItem.IconImageSource>
                                     <FontImageSource>

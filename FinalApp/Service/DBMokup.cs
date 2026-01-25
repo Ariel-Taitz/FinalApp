@@ -9,7 +9,7 @@ namespace FinalApp.Service
 {
     public class DBMokup
     {
-        private List<User> _users;
+        private static List<User> _users;
         public DBMokup()
         {
             _users = new List<User>();
@@ -22,7 +22,7 @@ namespace FinalApp.Service
         public User? GetUser(string uEmail, string uPass) { return _users.FirstOrDefault(u => u.UEmail == uEmail && u.UPassword == uPass); }
         public void AddUser(User user) { if (user != null) { _users.Add(user); } }
         public void RemoveUser(User user) { if (user != null && _users.Contains(user)) { _users.Remove(user); } }
-        public void UpdateUser(User user)
+        public static void UpdateUser(User user)
         {
             if (user != null && _users.Contains(user))
             {
