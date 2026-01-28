@@ -21,6 +21,7 @@ namespace FinalApp.ViewModels
         private string? _searchText; //Text entered in the search bar
         private List<User> _allUsers; //List of users to be displayed
         public string? _filterIconCode;
+        public ObservableUser SelectedUser { get; set; }
         #endregion
         #region Properties
         public bool EntryAsFilter
@@ -49,6 +50,7 @@ namespace FinalApp.ViewModels
                 }
             }
         }
+        //public ObservableCollection<ObservableUser> AllUsers { get; set; }
         public ObservableCollection<User> AllUsers { get; set; }
         public string? FilterIconCode
         {
@@ -78,6 +80,7 @@ namespace FinalApp.ViewModels
                     AllUsers.Clear(); // Clear the existing collection
                     foreach (var user in _allUsers)
                     {
+                        // AllUsers.Add(new ObservableUser(user)); // Add each user to the ObservableCollection
                         AllUsers.Add(user); // Add each user to the ObservableCollection
                     }
                 });
@@ -99,7 +102,7 @@ namespace FinalApp.ViewModels
             ShowFilterCommand = new Command(ToggleFilterButton);
             DeleteUserCommand = new Command<User>(DeleteUser);
             _entryAsFilter = false;
-            ViewAccountPageCommand = new Command<User>(GoToAccountPage);
+            ViewAccountPageCommand = new Command<ObservableUser>(GoToAccountPage);
         }
         private void ClearFilter()
         {
@@ -116,14 +119,13 @@ namespace FinalApp.ViewModels
                 FilterIconCode = FontHelper.FILTER_ALT_ON;
         }
 
-        private async void GoToAccountPage(User user)
+        private async void GoToAccountPage(ObservableUser SelectedUser)
         {
-            if (user != null)
+            if (SelectedUser != null)
             {
-                // Navigate to the account page for the selected user
-                //await Shell.Current.GoToAsync (@$"UserDetailsPage?UserId={user.Id}");
+                // If obuser is null, use the SelectedUser
                 Dictionary<string, object> param = new Dictionary<string, object>();
-                param.Add(" selectedUser ", user);
+                param.Add(" selectedUser ", SelectedUser.User);
                 await Shell.Current.GoToAsync(" UserDetailsPage ", param);
             }
             else
@@ -142,7 +144,7 @@ namespace FinalApp.ViewModels
             if (user != null)
             {
                 // Remove the user from the ObservableCollection
-                AllUsers.Remove(user);
+                //AllUsers.Remove(new ObservableUser(user));
             }
         }
     }
